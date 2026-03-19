@@ -1,0 +1,47 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+logs/
+*.log
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Vibe Coding / AI IDE
+.cursor/
+.windsurf/
+.augment/
+.aider*
+.cline/
+.roo/
+.continue/
+.copilot/
+.github/copilot/
+.bolt/
+.lovable/
+.v0/
+.devin/
+.kiro/
+.trae/
+
+# Environment
+.env
+.env.*
+
+# Python (if used)
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+
+# Temporary files
+*.tmp
+*.bak
