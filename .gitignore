@@ -33,9 +33,12 @@ logs/
 
 # Environment
 .env
-.env.*
+.env.local
+.env.production
+.env.*.local
+!.env.example
 
-# Python (if used)
+# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -45,3 +48,9 @@ venv/
 # Temporary files
 *.tmp
 *.bak
+
+# Model files
+*.bin
+*.safetensors
+*.pth
+*.ckpt
