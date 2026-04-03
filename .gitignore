@@ -10,12 +10,15 @@ logs/
 # Editor / IDE
 .vscode/
 .idea/
+.history/
+.fleet/
 *.swp
 *.swo
 *~
 
 # Vibe Coding / AI IDE
 .cursor/
+.cursor-tutor/
 .windsurf/
 .augment/
 .aider*
@@ -24,6 +27,16 @@ logs/
 .continue/
 .copilot/
 .github/copilot/
+.codeium/
+.cody/
+.qodo/
+.sourcegraph/
+.amazonq/
+.openhands/
+.opencode/
+.claude/
+.anthropic/
+.gemini/
 .bolt/
 .lovable/
 .v0/
@@ -36,19 +49,50 @@ logs/
 .env.local
 .env.production
 .env.*.local
+.python-version
+.envrc
+.direnv/
 config.local.env
 !.env.example
 
 # Python
 __pycache__/
 *.py[cod]
+*.pyd
+*.pyo
+*.py,cover
 *.egg-info/
+*.egg
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+dist/
+build/
+site/
+pip-wheel-metadata/
+.ipynb_checkpoints/
+ENV/
+env/
 venv/
 .venv/
 
 # Temporary files
 *.tmp
 *.bak
+*.pid
+*.seed
+*.out
+tmp/
+temp/
+.cache/
 
 # Model files
 *.bin
