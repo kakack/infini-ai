@@ -36,6 +36,7 @@ logs/
 .env.local
 .env.production
 .env.*.local
+config.local.env
 !.env.example
 
 # Python

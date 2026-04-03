@@ -3,9 +3,17 @@
 # Anthropic API 验证脚本
 # ============================================
 
-API_KEY="${ANTHROPIC_API_KEY:-REDACTED_ANTHROPIC_API_KEY}"
-BASE_URL="${ANTHROPIC_BASE_URL:-https://api.apipro.ai}"
-MODEL="${ANTHROPIC_MODEL:-claude-3-5-sonnet-latest}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../../config.sh"
+
+API_KEY="$ANTHROPIC_API_KEY"
+BASE_URL="$ANTHROPIC_BASE_URL"
+MODEL="$ANTHROPIC_MODEL"
+
+if [ -z "$API_KEY" ]; then
+    echo "错误: ANTHROPIC_API_KEY 未配置"
+    exit 1
+fi
 
 echo "========================================"
 echo "Anthropic API 验证"

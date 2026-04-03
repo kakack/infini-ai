@@ -7,26 +7,36 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
-# ----------------------------------------
-# 加载环境变量（从 .env 文件）
-# ----------------------------------------
 ENV_FILE="$PROJECT_ROOT/.env"
+LOCAL_CONFIG_FILE="$PROJECT_ROOT/config.local.env"
 
-if [ -f "$ENV_FILE" ]; then
-    # 安全地加载 .env 文件（忽略注释和空行）
+load_env_file() {
+    local file_path="$1"
+
     while IFS= read -r line || [[ -n "$line" ]]; do
-        # 跳过注释和空行
         [[ "$line" =~ ^#.*$ ]] && continue
         [[ -z "$line" ]] && continue
-        # 只导出有效的 KEY=VALUE 行
+
         if [[ "$line" =~ ^[A-Za-z_][A-Za-z0-9_]*= ]]; then
             export "$line" 2>/dev/null || true
         fi
-    done < "$ENV_FILE"
-    echo "✅ 已加载环境变量: $ENV_FILE"
-else
-    echo "⚠️  警告: 未找到 .env 文件，请从 .env.example 复制并配置:"
-    echo "   cp $PROJECT_ROOT/.env.example $PROJECT_ROOT/.env"
+    done < "$file_path"
+
+    echo "✅ 已加载配置: $file_path"
+}
+
+if [ -f "$ENV_FILE" ]; then
+    load_env_file "$ENV_FILE"
+fi
+
+if [ -f "$LOCAL_CONFIG_FILE" ]; then
+    load_env_file "$LOCAL_CONFIG_FILE"
+fi
+
+if [ ! -f "$ENV_FILE" ] && [ ! -f "$LOCAL_CONFIG_FILE" ]; then
+    echo "⚠️  警告: 未找到本地配置文件"
+    echo "   可使用 $PROJECT_ROOT/.env.example 初始化 .env"
+    echo "   API Key 推荐写入 $LOCAL_CONFIG_FILE"
     echo ""
 fi
 
@@ -124,7 +134,7 @@ check_api_key() {
         echo "⚠️  警告: $name API Key 未配置"
         return 1
     else
-        echo "✅ $name API Key 已配置 (${key:0:10}...)"
+        echo "✅ $name API Key 已配置"
         return 0
     fi
 }
@@ -153,6 +163,6 @@ echo ""
 # 如果缺少关键配置，给出提示
 if [ -z "$INFINI_AI_API_KEY" ] && [ -z "$SENSENOVA_API_KEY" ] && [ -z "$ANTHROPIC_API_KEY" ]; then
     echo "⚠️  警告: 所有 API Key 都未配置"
-    echo "   请编辑 $ENV_FILE 添加您的 API Keys"
+    echo "   请编辑 $LOCAL_CONFIG_FILE 添加您的 API Keys"
     echo ""
 fi

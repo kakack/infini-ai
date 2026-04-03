@@ -3,8 +3,16 @@
 # 商汤科技 (SenseNova) 平台 - LLM 验证脚本
 # ============================================
 
-API_KEY="${SENSENOVA_API_KEY:-REDACTED_SENSENOVA_API_KEY}"
-BASE_URL="https://api.sensenova.cn/compatible-mode/v2"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../../config.sh"
+
+API_KEY="$SENSENOVA_API_KEY"
+BASE_URL="$SENSENOVA_BASE_URL"
+
+if [ -z "$API_KEY" ]; then
+    echo "错误: SENSENOVA_API_KEY 未配置"
+    exit 1
+fi
 
 declare -A MODELS=(
     ["deepseek-r1"]="DeepSeek-R1-IAAR"
